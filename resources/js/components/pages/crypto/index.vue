@@ -1,32 +1,11 @@
 <template>
     <div>
         <!-- Main Card Container -->
-        <v-card>
-            <!-- Page Header with Title and Add Button -->
+        <v-card class="crypto-card">
+            <!-- Compact Page Header -->
             <v-card-title>
-                <div class="row align-center">
-                    <div class="col-6">
-                        <h3>Crypto Portfolio</h3>
-                    </div>
-                    <div class="col-6">
-                        <div class="float-right">
-                            <!-- Refresh Button -->
-                            <v-btn size="x-large" color="primary" class="mr-2" @click="refreshComponent"
-                                icon="mdi-refresh" title="Refresh" :loading="dataLoading"></v-btn>
-                            <!-- Add Transaction Button (Auth Required) -->
-                            <v-btn v-if="auth && auth.cost_deposit" size="x-large" color="success"
-                                @click="addDataModel('Add Transaction')" icon="mdi-plus-box" title="Add"></v-btn>
-                            <!-- Login Button (Not Authenticated) -->
-                            <v-btn v-else-if="!auth" size="large" color="success" href="/login" title="Login"><v-icon
-                                    start icon="mdi mdi-login"></v-icon> Login</v-btn>
-                        </div>
-                    </div>
-                </div>
-            </v-card-title>
-
-            <v-card-text>
-                <div class="card-body">
-                    <div v-if="allData.data">
+                <v-row class="align-center" no-gutters>
+                    <v-col cols="12" md="10" lg="10">
                         <!-- Portfolio Summary Card - Shows total invested, current value, and overall P&L -->
                         <v-card class="mb-6 bg-indigo-lighten-5 rounded-xl" elevation="2">
                             <v-card-text>
@@ -59,6 +38,31 @@
                                 </v-row>
                             </v-card-text>
                         </v-card>
+                    </v-col>
+
+                    <v-col cols="12" md="10" lg="2">
+                        <div class="d-flex justify-end mt-2 mt-md-0" style="gap: 8px;">
+                            <!-- Refresh Button -->
+                            <v-btn size="large" color="primary" variant="flat" class="px-3" @click="refreshComponent"
+                                icon="mdi-refresh" title="Refresh" :loading="dataLoading"></v-btn>
+                            <!-- Add Transaction Button (Auth Required) -->
+                            <v-btn v-if="auth && auth.cost_deposit" size="large" color="success" variant="flat"
+                                class="px-3" @click="addDataModel('Add Transaction')" title="Add">
+                                <v-icon start icon="mdi-plus"></v-icon>Add
+                            </v-btn>
+                            <!-- Login Button (Not Authenticated) -->
+                            <v-btn v-else-if="!auth" size="large" color="success" variant="flat" class="px-3"
+                                href="/login" title="Login">
+                                <v-icon start icon="mdi-login"></v-icon>Login
+                            </v-btn>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-card-title>
+
+            <v-card-text>
+                <div class="card-body">
+                    <div v-if="allData.data">
 
                         <!-- Table Controls: Pagination and Search -->
                         <v-row>

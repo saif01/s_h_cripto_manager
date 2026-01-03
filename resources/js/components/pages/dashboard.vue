@@ -19,23 +19,11 @@
               {{ auth.name }}
             </v-chip>
 
-            <v-btn
-              v-if="auth"
-              color="error"
-              variant="flat"
-              class="text-white"
-              href="/logout"
-            >
+            <v-btn v-if="auth" color="error" variant="flat" class="text-white" href="/logout">
               <v-icon start icon="mdi-logout"></v-icon>
               Logout
             </v-btn>
-            <v-btn
-              v-else
-              color="success"
-              variant="flat"
-              class="text-white"
-              href="/login"
-            >
+            <v-btn v-else color="success" variant="flat" class="text-white" href="/login">
               <v-icon start icon="mdi-login"></v-icon>
               Login
             </v-btn>
@@ -43,15 +31,8 @@
         </div>
 
         <v-card class="dash-panel" elevation="12">
-          <v-tabs
-            v-model="tab"
-            bg-color="transparent"
-            slider-color="indigo-darken-3"
-            color="indigo-darken-4"
-            class="px-4 tab-bar"
-            grow
-            density="comfortable"
-          >
+          <v-tabs v-model="tab" bg-color="transparent" slider-color="indigo-darken-3" color="indigo-darken-4"
+            class="px-4 tab-bar" grow density="comfortable">
             <v-tab value="one" @click="keyCryptoPortfolioComponente++">
               <v-icon start icon="mdi-currency-btc"></v-icon>
               Crypto
@@ -64,18 +45,12 @@
               <v-icon start icon="mdi-bank-transfer"></v-icon>
               Deposits
             </v-tab>
-            <v-tab
-              v-if="auth"
-              link
-              router
-              :to="{ name: 'IncomeExpense' }"
-            >
+            <v-tab v-if="auth" link router :to="{ name: 'IncomeExpense' }">
               <v-icon start icon="mdi-chart-areaspline"></v-icon>
               Income & Expense
             </v-tab>
           </v-tabs>
 
-          <v-divider></v-divider>
 
           <v-card-text class="pa-4 pa-md-6">
             <v-tabs-window v-model="tab">
@@ -104,32 +79,32 @@ import CryptoPortfolioComponente from './crypto/index.vue'
 
 export default {
 
-    components: {
-        CostComponente,
-        DepositComponente,
-        CryptoPortfolioComponente
-    },
+  components: {
+    CostComponente,
+    DepositComponente,
+    CryptoPortfolioComponente
+  },
 
-    data: () => ({
-        tab: 'one',
+  data: () => ({
+    tab: 'one',
 
-        keyCostComponente: 0,
-        keyDepositComponente: 0,
-        keyCryptoPortfolioComponente: 0,
-    }),
+    keyCostComponente: 0,
+    keyDepositComponente: 0,
+    keyCryptoPortfolioComponente: 0,
+  }),
 
-    mounted() {
+  mounted() {
 
-        if (this.auth && !this.auth.cost_deposit) {
-            console.log('Cost Deposit Access Not Have')
-            window.location.href = "/income-expense";
-        }
-
-    },
-
-    created() {
-
+    if (this.auth && !this.auth.cost_deposit) {
+      console.log('Cost Deposit Access Not Have')
+      window.location.href = "/income-expense";
     }
+
+  },
+
+  created() {
+
+  }
 
 }
 
@@ -194,9 +169,11 @@ export default {
   .dashboard-shell {
     padding: 24px 16px;
   }
+
   .dash-panel {
     border-radius: 14px;
   }
+
   .tab-bar {
     flex-wrap: wrap;
   }
