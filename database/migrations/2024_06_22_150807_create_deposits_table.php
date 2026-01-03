@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('deposits', function (Blueprint $table) {
+            $table->id();
+            $table->integer('money');
+            $table->string('details')->nullable();
+            $table->integer('delete_temp')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('deposits');
     }
 };

@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('admin')->after('email'); // admin, editor, hr, staff
-            $table->string('avatar')->nullable()->after('role');
+        Schema::create('costs', function (Blueprint $table) {
+            $table->id();
+            $table->integer('money');
+            $table->string('to')->nullable();
+            $table->string('details')->nullable();
+            $table->integer('delete_temp')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role', 'avatar']);
-        });
+        Schema::dropIfExists('costs');
     }
 };

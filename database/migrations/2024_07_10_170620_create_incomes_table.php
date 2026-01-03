@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('incomes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('group')->default('general'); // general, content, users, settings, etc.
-            $table->text('description')->nullable();
+            $table->integer('money');
+            $table->string('type', 50)->nullable();
+            $table->string('details')->nullable();
+            $table->integer('delete_temp')->nullable();
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('incomes');
     }
 };
