@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="dashboard-shell pa-4 pa-md-8">
+  <v-container fluid class="dashboard-shell pa-2">
     <div class="dash-glow dash-glow-1"></div>
     <div class="dash-glow dash-glow-2"></div>
 
@@ -43,7 +43,7 @@
           </div>
 
 
-          <v-card-text class="pa-4 pa-md-6">
+          <v-card-text class="pa-2">
             <v-tabs-window v-model="tab">
               <v-tabs-window-item value="one">
                 <CryptoPortfolioComponente :key="keyCryptoPortfolioComponente" />
@@ -162,7 +162,7 @@ export default {
 
 @media (max-width: 960px) {
   .dashboard-shell {
-    padding: 24px 16px;
+    padding: 8px;
   }
 
   .dash-panel {

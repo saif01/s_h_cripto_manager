@@ -66,7 +66,7 @@
     "src": "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"
   },
   "resources/js/app.js": {
-    "file": "assets/app-BqwnbN9s.js",
+    "file": "assets/app-_qG5e3qg.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -114,7 +114,7 @@
     ]
   },
   "resources/js/components/pages/crypto/index.vue": {
-    "file": "assets/index-C5lp2EoC.js",
+    "file": "assets/index-BojyfH3d.js",
     "name": "index",
     "src": "resources/js/components/pages/crypto/index.vue",
     "isDynamicEntry": true,
@@ -122,10 +122,13 @@
       "_vform.es-CcOTaIAQ.js",
       "resources/js/app.js",
       "__plugin-vue_export-helper-DjLPlrT0.js"
+    ],
+    "css": [
+      "assets/index-D3N2AA6h.css"
     ]
   },
   "resources/js/components/pages/dashboard.vue": {
-    "file": "assets/dashboard-pTVle_rm.js",
+    "file": "assets/dashboard-CZcNMtL0.js",
     "name": "dashboard",
     "src": "resources/js/components/pages/dashboard.vue",
     "isDynamicEntry": true,
@@ -136,7 +139,7 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/dashboard-AqKlOrnW.css"
+      "assets/dashboard-wGEUnGwT.css"
     ]
   },
   "resources/sass/app.scss": {

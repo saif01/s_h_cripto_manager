@@ -2,62 +2,49 @@
     <div>
         <!-- Main Card Container -->
         <v-card class="crypto-card">
-            <!-- Compact Page Header -->
-            <v-card-title>
-                <v-row class="align-center" no-gutters>
-                    <v-col cols="12" md="10" lg="10">
-                        <!-- Portfolio Summary Card - Shows total invested, current value, and overall P&L -->
-                        <v-card class="mb-6 bg-indigo-lighten-5 rounded-xl" elevation="2">
-                            <v-card-text>
-                                <v-row>
-                                    <!-- Total Amount Invested -->
-                                    <v-col cols="12" md="4">
-                                        <div class="text-caption text-indigo-darken-2">Total Invested</div>
-                                        <div class="text-h5 font-weight-black text-indigo-darken-4">
-                                            ${{ formatCurrency(portfolioSummary.totalInvested) }}
-                                        </div>
-                                    </v-col>
+            <!-- Compact Header -->
+            <v-card-title class="d-flex align-center justify-space-between pa-4">
+                <div class="d-flex align-center gap-6">
+                    <v-chip color="indigo-darken-4" size="small" class="text-white px-3">
+                        <v-icon start icon="mdi-currency-btc" size="small"></v-icon>
+                        Crypto Portfolio
+                    </v-chip>
 
-                                    <!-- Current Total Value (Real-time from CoinGecko) -->
-                                    <v-col cols="12" md="4">
-                                        <div class="text-caption text-indigo-darken-2">Current Portfolio Value</div>
-                                        <div class="text-h5 font-weight-black text-indigo-darken-4">
-                                            ${{ formatCurrency(portfolioSummary.totalCurrentValue) }}
-                                        </div>
-                                    </v-col>
-
-                                    <!-- Overall Profit/Loss (USD and %) - Color coded: green for profit, red for loss -->
-                                    <v-col cols="12" md="4">
-                                        <div class="text-caption text-indigo-darken-2">Overall Profit/Loss</div>
-                                        <div class="text-h4 font-weight-black" :class="getOverallPnlClass()">
-                                            ${{ formatCurrency(portfolioSummary.overallPNLUSD) }}
-                                            ({{ portfolioSummary.overallPNLPercentage >= 0 ? '+' : '' }}{{
-                                                portfolioSummary.overallPNLPercentage.toFixed(2) }}%)
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-card-text>
-                        </v-card>
-                    </v-col>
-
-                    <v-col cols="12" md="10" lg="2">
-                        <div class="d-flex justify-end mt-2 mt-md-0" style="gap: 8px;">
-                            <!-- Refresh Button -->
-                            <v-btn size="large" color="primary" variant="flat" class="px-3" @click="refreshComponent"
-                                icon="mdi-refresh" title="Refresh" :loading="dataLoading"></v-btn>
-                            <!-- Add Transaction Button (Auth Required) -->
-                            <v-btn v-if="auth && auth.cost_deposit" size="large" color="success" variant="flat"
-                                class="px-3" @click="addDataModel('Add Transaction')" title="Add">
-                                <v-icon start icon="mdi-plus"></v-icon>Add
-                            </v-btn>
-                            <!-- Login Button (Not Authenticated) -->
-                            <v-btn v-else-if="!auth" size="large" color="success" variant="flat" class="px-3"
-                                href="/login" title="Login">
-                                <v-icon start icon="mdi-login"></v-icon>Login
-                            </v-btn>
+                    <div class="d-flex align-center gap-4">
+                        <div class="text-center">
+                            <div class="text-caption text-grey-darken-1">Invested</div>
+                            <div class="text-h6 font-weight-bold">${{ formatCurrency(portfolioSummary.totalInvested) }}
+                            </div>
                         </div>
-                    </v-col>
-                </v-row>
+                        <v-divider vertical class="mx-2"></v-divider>
+                        <div class="text-center">
+                            <div class="text-caption text-grey-darken-1">Current</div>
+                            <div class="text-h6 font-weight-bold">${{ formatCurrency(portfolioSummary.totalCurrentValue)
+                            }}</div>
+                        </div>
+                        <v-divider vertical class="mx-2"></v-divider>
+                        <div class="text-center">
+                            <div class="text-caption text-grey-darken-1">P&L</div>
+                            <div class="text-h6 font-weight-bold" :class="getOverallPnlClass()">
+                                ${{ formatCurrency(portfolioSummary.overallPNLUSD) }}
+                                ({{ portfolioSummary.overallPNLPercentage >= 0 ? '+' : '' }}{{
+                                    portfolioSummary.overallPNLPercentage.toFixed(2) }}%)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-center gap-2">
+                    <v-btn size="small" color="primary" variant="text" @click="refreshComponent" icon="mdi-refresh"
+                        :loading="dataLoading"></v-btn>
+                    <v-btn v-if="auth && auth.cost_deposit" size="small" color="success" variant="flat"
+                        @click="addDataModel('Add Transaction')">
+                        <v-icon start icon="mdi-plus" size="small"></v-icon>Add
+                    </v-btn>
+                    <v-btn v-else-if="!auth" size="small" color="success" variant="flat" href="/login">
+                        <v-icon start icon="mdi-login" size="small"></v-icon>Login
+                    </v-btn>
+                </div>
             </v-card-title>
 
             <v-card-text>
@@ -89,7 +76,7 @@
                                 <thead>
                                     <tr>
                                         <!-- Asset Name Column (with icon from CoinGecko) -->
-                                        <th>
+                                        <th style="width: 15%;">
                                             <a href="#" @click.prevent="change_sort('asset_name')">Asset</a>
                                             <span v-if="sort_field == 'asset_name'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -99,7 +86,7 @@
                                             </span>
                                         </th>
 
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 8%;">
                                             <a href="#" @click.prevent="change_sort('pnl_percentage')">P&L (%)</a>
                                             <span v-if="sort_field == 'pnl_percentage'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -109,7 +96,7 @@
                                             </span>
                                         </th>
 
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 10%;">
                                             <a href="#" @click.prevent="change_sort('pnl_usd')">P&L (USD)</a>
                                             <span v-if="sort_field == 'pnl_usd'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -119,9 +106,7 @@
                                             </span>
                                         </th>
 
-
-
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 10%;">
                                             <a href="#" @click.prevent="change_sort('average_asset_price')">Average
                                                 Price</a>
                                             <span v-if="sort_field == 'average_asset_price'" class="ml-1">
@@ -132,7 +117,7 @@
                                             </span>
                                         </th>
 
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 22%;">
                                             <a href="#" @click.prevent="change_sort('current_price')">Current Price</a>
                                             <span v-if="sort_field == 'current_price'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -142,7 +127,7 @@
                                             </span>
                                         </th>
 
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 10%;">
                                             <a href="#" @click.prevent="change_sort('total_invested')">Total
                                                 Invested</a>
                                             <span v-if="sort_field == 'total_invested'" class="ml-1">
@@ -153,7 +138,7 @@
                                             </span>
                                         </th>
 
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 5%;">
                                             <a href="#" @click.prevent="change_sort('asset_quantity')">Qty</a>
                                             <span v-if="sort_field == 'asset_quantity'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -163,7 +148,7 @@
                                             </span>
                                         </th>
 
-                                        <th class="text-right">
+                                        <th class="text-right" style="width: 10%;">
                                             <a href="#" @click.prevent="change_sort('current_value')">Current Value</a>
                                             <span v-if="sort_field == 'current_value'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -183,7 +168,7 @@
                                             </span>
                                         </th> -->
 
-                                        <th v-if="auth && auth.cost_deposit">
+                                        <th v-if="auth && auth.cost_deposit" style="width: 15%;">
                                             <a href="#" @click.prevent="change_sort('id')">Action</a>
                                             <span v-if="sort_field == 'id'" class="ml-1">
                                                 <v-icon v-if="sort_direction == 'desc'"
@@ -197,8 +182,7 @@
                                 <!-- Table Body - Displays all cryptocurrency holdings -->
                                 <tbody>
                                     <tr v-for="singleData in allData.data" :key="singleData.id">
-                                        <!-- Asset Name with Icon -->
-                                        <td>
+                                        <td style="width: 15%;">
                                             <div class="d-flex align-center">
                                                 <!-- Coin Logo (28px, fetched from CoinGecko API) -->
                                                 <img v-if="singleData.coin_image" :src="singleData.coin_image"
@@ -211,54 +195,54 @@
                                         </td>
 
                                         <!-- P&L Percentage - Color coded (green=profit, red=loss) -->
-                                        <td class="text-right" :class="getPnlClass(singleData)">
+                                        <td class="text-right" :class="getPnlClass(singleData)" style="width: 10%;">
                                             {{ calculatePnlPercentage(singleData) }}
                                         </td>
 
                                         <!-- P&L USD Amount - Color coded (green=profit, red=loss) -->
-                                        <td class="text-right" :class="getPnlClass(singleData)">
+                                        <td class="text-right" :class="getPnlClass(singleData)" style="width: 12%;">
                                             {{ calculatePnlUSD(singleData) }}
                                         </td>
 
-
-
                                         <!-- Average Purchase Price per Unit -->
-                                        <td class="text-right">{{ formatPrice(singleData.average_asset_price) }}</td>
+                                        <td class="text-right" style="width: 12%;">{{
+                                            formatPrice(singleData.average_asset_price) }}</td>
 
-                                        <!-- Current Price - Editable: manual override used for calculations -->
-                                        <td class="text-right">
-                                            <div class="d-flex align-center justify-end">
-                                                <v-text-field v-model.number="manualPrices[singleData.id]" class="mr-2"
-                                                    density="compact" type="number" step="any" variant="underlined"
+                                        <!-- Current Price - Compact design with stacked layout -->
+                                        <td class="text-right" style="width: 20%;">
+                                            <div class="d-flex align-center">
+                                                <v-text-field :label="formatPrice(effectivePrice(singleData))"
+                                                    v-model.number="manualPrices[singleData.id]" density="compact"
+                                                    type="number" step="any" variant="outlined"
+                                                    :value="effectivePrice(singleData)"
                                                     :placeholder="formatPrice(singleData.current_price)"
-                                                    title="Enter manual price to override market"
-                                                    style="max-width: 140px;"></v-text-field>
-                                                <div class="text-primary font-weight-bold" style="min-width: 120px;">
-                                                    {{ formatPrice(effectivePrice(singleData)) }}
-                                                </div>
+                                                    title="Manual override" hide-details
+                                                    style="font-size: 12px;"></v-text-field>
                                                 <v-btn
                                                     v-if="manualPrices[singleData.id] !== undefined && manualPrices[singleData.id] !== null && manualPrices[singleData.id] !== ''"
                                                     icon="mdi-close-circle" size="x-small" variant="text" class="ml-1"
-                                                    title="Clear manual price"
-                                                    @click="clearManualPrice(singleData)"></v-btn>
+                                                    title="Clear" @click="clearManualPrice(singleData)"></v-btn>
                                             </div>
                                         </td>
 
                                         <!-- Total Amount Invested (Quantity × Average Price) -->
-                                        <td class="text-right">${{ formatCurrency(singleData.total_invested) }}</td>
+                                        <td class="text-right" style="width: 12%;">${{
+                                            formatCurrency(singleData.total_invested) }}</td>
 
                                         <!-- Asset Quantity Owned -->
-                                        <td class="text-right">{{ formatNumber(singleData.asset_quantity) }}</td>
+                                        <td class="text-right" style="width: 8%;">{{
+                                            formatNumber(singleData.asset_quantity) }}</td>
 
                                         <!-- Current Total Value (Quantity × Current Price) -->
-                                        <td class="text-right">${{ formatCurrency(calculateCurrentValue(singleData)) }}
+                                        <td class="text-right" style="width: 13%;">${{
+                                            formatCurrency(calculateCurrentValue(singleData)) }}
                                         </td>
 
                                         <!-- Record Creation Date -->
                                         <!-- <td>{{ $moment(singleData.created_at).format("DD/MM/YYYY") }}</td> -->
 
                                         <!-- Action Buttons - Only visible for authenticated users -->
-                                        <td v-if="auth && auth.cost_deposit">
+                                        <td v-if="auth && auth.cost_deposit" style="width: 15%;">
                                             <v-btn v-if="singleData.status == 1" @click="statusChange(singleData)"
                                                 size="small" color="green" variant="text" icon title="Active">
                                                 <v-icon size="x-large" icon="mdi-check-decagram"></v-icon>
@@ -642,3 +626,16 @@ export default {
     },
 };
 </script>
+<style scoped>
+.gap-2 {
+    gap: 8px;
+}
+
+.gap-4 {
+    gap: 16px;
+}
+
+.gap-6 {
+    gap: 24px;
+}
+</style>
