@@ -1,0 +1,79 @@
+// Sass helpers
+@use 'sass:meta';
+
+// Bootstrap (Sass modules) with custom variable overrides
+@use 'variables' as vars;
+@use 'bootstrap/scss/bootstrap' with (
+  $body-bg: vars.$body-bg,
+  $font-family-sans-serif: vars.$font-family-sans-serif,
+  $font-size-base: vars.$font-size-base,
+  $line-height-base: vars.$line-height-base,
+);
+
+// CSS assets
+@include meta.load-css('@mdi/font/css/materialdesignicons.css');
+@include meta.load-css('@fontsource/prompt/index.css');
+@include meta.load-css('../css/common/preloader.css');
+
+* {
+    font-family: 'Prompt', sans-serif !important;
+}
+
+
+.required label:after {
+    content: "\00a0*";
+    color: red;
+    float: right;
+    /* word-spacing: 4px; */
+  }
+  
+
+
+  .bordered__table th,
+  .bordered__table td {
+      border: 1px solid #e0e0e0;
+      text-align: center !important;
+  }
+  
+  .bordered__table th {
+      background: linear-gradient(to bottom, #093637, #206355) !important;
+      color: white !important;
+  }
+  
+  .bordered__table th a {
+      color: white;
+      text-decoration: none;
+  
+  }
+  
+  .bordered__table{
+    margin-bottom: 5px;
+  }
+  
+  .bordered__table tbody tr:nth-child(odd) {
+      background-color: rgba(0, 0, 0, 0.05);
+      /* This gives the striped effect */
+  }
+  
+  .default__style th,
+  .default__style td {
+    border: none !important;
+    text-align: left !important;
+    background: transparent !important;
+    color: black !important;
+  }
+  
+  .default__style tr:nth-child(odd) {
+    background-color: transparent !important;
+  }
+  
+  
+  // sweet alert make top 
+  .swal2-container {
+    z-index: 9999 !important;
+  }
+
+
+  // .v-card .v-card-text {
+  //   padding: 3px !important;
+  // }
