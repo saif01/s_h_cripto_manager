@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @include('common.demo-icon')
-    <title>Cost Deposit</title>
+    <title>Login - CryptoManager</title>
     @vite('resources/sass/app.scss')
 </head>
 

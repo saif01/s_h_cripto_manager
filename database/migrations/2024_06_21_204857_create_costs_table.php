@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
             $table->integer('money');
+            $table->integer('remaining')->nullable();
             $table->string('to')->nullable();
             $table->string('details')->nullable();
             $table->integer('delete_temp')->nullable();
