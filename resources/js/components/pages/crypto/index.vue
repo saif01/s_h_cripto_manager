@@ -3,46 +3,37 @@
         <!-- Main Card Container -->
         <v-card class="crypto-card">
             <!-- Compact Header -->
-            <v-card-title class="d-flex align-center justify-space-between pa-4">
-                <div class="d-flex align-center gap-6">
-                    <v-chip color="indigo-darken-4" size="small" class="text-white px-3">
-                        <v-icon start icon="mdi-currency-btc" size="small"></v-icon>
-                        Crypto Portfolio
-                    </v-chip>
-
+            <v-card-title class="d-flex align-center justify-space-between pa-4 mobile-header">
+                <div class="d-flex align-center gap-6 mobile-stats">
                     <div class="d-flex align-center gap-4">
-                        <div class="text-center">
-                            <div class="text-caption text-grey-darken-1">Invested</div>
-                            <div class="text-h6 font-weight-bold">${{ formatCurrency(portfolioSummary.totalInvested) }}
-                            </div>
-                        </div>
-                        <v-divider vertical class="mx-2"></v-divider>
-                        <div class="text-center">
-                            <div class="text-caption text-grey-darken-1">Current</div>
-                            <div class="text-h6 font-weight-bold">${{ formatCurrency(portfolioSummary.totalCurrentValue)
-                            }}</div>
-                        </div>
-                        <v-divider vertical class="mx-2"></v-divider>
                         <div class="text-center">
                             <div class="text-caption text-grey-darken-1">P&L</div>
                             <div class="text-h6 font-weight-bold" :class="getOverallPnlClass()">
                                 ${{ formatCurrency(portfolioSummary.overallPNLUSD) }}
-                                ({{ portfolioSummary.overallPNLPercentage >= 0 ? '+' : '' }}{{
-                                    portfolioSummary.overallPNLPercentage.toFixed(2) }}%)
+                                ({{ portfolioSummary.overallPNLPercentage >= 0 ? '+' : '' }}{{portfolioSummary.overallPNLPercentage.toFixed(2) }}%)
                             </div>
+                        </div>
+
+                        <v-divider vertical class="mx-2 mobile-divider"></v-divider>
+                        <div class="text-center">
+                            <div class="text-caption text-grey-darken-1">Current</div>
+                            <div class="text-h6 font-weight-bold">${{ formatCurrency(portfolioSummary.totalCurrentValue) }}</div>
+                        </div>
+                        <v-divider vertical class="mx-2 mobile-divider"></v-divider>
+                        <div class="text-center">
+                            <div class="text-caption text-grey-darken-1">Invested</div>
+                            <div class="text-h6 font-weight-bold">${{ formatCurrency(portfolioSummary.totalInvested) }}</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="d-flex align-center gap-2">
-                    <v-btn size="small" color="primary" variant="text" @click="refreshComponent" icon="mdi-refresh"
-                        :loading="dataLoading"></v-btn>
-                    <v-btn v-if="auth && auth.cost_deposit" size="small" color="success" variant="flat"
-                        @click="addDataModel('Add Transaction')">
-                        <v-icon start icon="mdi-plus" size="small"></v-icon>Add
+                    <v-btn size="small" color="primary" variant="text" @click="refreshComponent" icon="mdi-refresh" :loading="dataLoading"></v-btn>
+                    <v-btn v-if="auth && auth.cost_deposit" size="small" color="success" variant="flat" @click="addDataModel('Add Transaction')">
+                        <v-icon start icon="mdi-plus" size="small"></v-icon><span class="mobile-btn-text">Add</span>
                     </v-btn>
                     <v-btn v-else-if="!auth" size="small" color="success" variant="flat" href="/login">
-                        <v-icon start icon="mdi-login" size="small"></v-icon>Login
+                        <v-icon start icon="mdi-login" size="small"></v-icon><span class="mobile-btn-text">Login</span>
                     </v-btn>
                 </div>
             </v-card-title>
@@ -637,5 +628,38 @@ export default {
 
 .gap-6 {
     gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .mobile-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+    
+    .mobile-stats {
+        justify-content: center;
+        gap: 2px;
+    }
+    
+    .mobile-stats .d-flex {
+        gap: 8px;
+    }
+    
+    .mobile-stats .text-center {
+        min-width: 80px;
+    }
+    
+    .mobile-stats .text-h6 {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-divider {
+        display: none;
+    }
+    
+    .mobile-btn-text {
+        display: none;
+    }
 }
 </style>
